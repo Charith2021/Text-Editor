@@ -34,7 +34,7 @@
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#mnuItemExit_OnAction" text="Exit">
+                  <MenuItem  mnemonicParsing="false" onAction="#mnuItemExit_OnAction" text="Exit">
                      <accelerator>
                         <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>

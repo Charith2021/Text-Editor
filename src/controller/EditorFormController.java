@@ -1,11 +1,14 @@
 package controller;
 
-import com.sun.java.util.jar.pack.ConstantPool;
+
 import javafx.event.ActionEvent;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,32 +18,14 @@ public class EditorFormController {
     public TextArea txtEditor;
     public AnchorPane pneFind;
     public TextField txtSearch;
+    public MenuItem mnuItem;
+    private int findOffset = -1;
 
     private int findOffSet;
 
     public  void  initialize(){
         pneFind.setVisible(false);
-
-        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            FXUtil.highlightOnTextArea(txtEditor,newValue, Color.web("yellow", 0.8));
-
-            try {
-                Pattern regExp = Pattern.compile(newValue);
-                Matcher matcher = regExp.matcher(txtEditor.getText());
-
-                searchList.clear();
-
-                while (matcher.find()) {
-                    searchList.add(new ConstantPool.Index(matcher.start(), matcher.end()));
-                }
-            } catch (PatternSyntaxException e) {
-
-            }
-        });
     }
-
-
 
 
     public void mnuItemNew_OnAction(ActionEvent actionEvent) {
@@ -49,6 +34,8 @@ public class EditorFormController {
     }
 
     public void mnuItemExit_OnAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) txtSearch.getScene().getWindow();
+        stage.close();
     }
 
     public void mnuItemFind_OnAction(ActionEvent actionEvent) {
@@ -81,19 +68,30 @@ public class EditorFormController {
     }
 
     public void btnFindPrevious_OnAction(ActionEvent actionEvent) {
-        String pattern=txtSearch.getText();
-        String text=txtEditor.getText();
 
-        Pattern regEx=Pattern.compile(pattern);
-        Matcher matcher=regEx.matcher(text);
+        String pattern = new StringBuilder(txtSearch.getText()).reverse().toString();
+        String text = new StringBuilder(txtEditor.getText()).reverse().toString();
 
-        boolean exists = matcher.find(findOffSet);
-        if (exists){
-            findOffSet=matcher.start() - 1;
-            txtEditor.selectRange(matcher.start(), matcher.end());
-        }else {
-            findOffSet=0;
+        Pattern compile = Pattern.compile(pattern);
+        Matcher matcher = compile.matcher(text);
+
+        if (matcher.find(++findOffset)) {
+            findOffset = matcher.start();
+            txtEditor.selectRange(text.length() - matcher.end(), text.length() - matcher.start());
+
+            if (!matcher.find(findOffset +1)){
+                findOffset = -1;
+            }
         }
+    }
 
+    class Index {
+        int startingIndex;
+        int endIndex;
+
+        public Index(int startingIndex, int endIndex) {
+            this.startingIndex = startingIndex;
+            this.endIndex = endIndex;
+        }
     }
 }
