@@ -34,7 +34,7 @@
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem  mnemonicParsing="false" onAction="#mnuItemExit_OnAction" text="Exit">
+                  <MenuItem mnemonicParsing="false" onAction="#mnuItemExit_OnAction" text="Exit">
                      <accelerator>
                         <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -90,11 +90,21 @@
       </MenuBar>
       <TextArea fx:id="txtEditor" layoutY="29.0" prefHeight="285.0" prefWidth="580.0" text="A regular expression (shortened as regex or regexp;[1] also referred to as rational expression[2][3]) is a sequence of characters that specifies a search pattern. Usually such patterns are used by string-searching algorithms for &quot;find&quot; or &quot;find and replace&quot; operations on strings, or for input validation. It is a technique developed in theoretical computer science and formal language theory.&#10;&#10;The concept arose in the 1950s when the American mathematician Stephen Cole Kleene formalized the description of a regular language. The concept came into common use with Unix text-processing utilities. Different syntaxes for writing regular expressions have existed since the 1980s, one being the POSIX standard and another, widely used, being the Perl syntax.&#10;&#10;Regular expressions are used in search engines, search and replace dialogs of word processors and text editors, in text processing utilities such as sed and AWK and in lexical analysis. Many programming languages provide regex capabilities either built-in or via libraries, as it has uses in many situations.&#10;&#10;The phrase regular expressions, or regexes, is often used to mean the specific, standard textual syntax for representing patterns for matching text, as distinct from the mathematical notation described below. Each character in a regular expression (that is, each character in the string describing its pattern) is either a metacharacter, having a special meaning, or a regular character that has a literal meaning. For example, in the regex b., 'b' is a literal character that matches just 'b', while '.' is a metacharacter that matches every character except a newline. Therefore, this regex matches, for example, 'b%', or 'bx', or 'b5'. Together, metacharacters and literal characters can be used to identify text of a given pattern or process a number of instances of it. Pattern matches may vary from a precise equality to a very general similarity, as controlled by the metacharacters. For example, . is a very general pattern, [a-z] (match all lower case letters from 'a' to 'z') is less general and b is a precise pattern (matches just 'b'). The metacharacter syntax is designed specifically to represent prescribed targets in a concise and flexible way to direct the automation of text processing of a variety of input data, in a form easy to type using a standard ASCII keyboard.&#10;&#10;A very simple case of a regular expression in this syntax is to locate a word spelled two different ways in a text editor, the regular expression seriali[sz]e matches both &quot;serialise&quot; and &quot;serialize&quot;. Wildcard characters also achieve this, but are more limited in what they can pattern, as they have fewer metacharacters and a simple language-base.  " wrapText="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
       <ToolBar layoutY="360.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <AnchorPane fx:id="pneFind" layoutX="231.0" layoutY="29.0" prefHeight="49.0" prefWidth="303.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="pneFind" layoutX="231.0" layoutY="29.0" prefHeight="60.0" prefWidth="303.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField fx:id="txtSearch" layoutX="10.0" layoutY="12.0" prefHeight="26.0" prefWidth="187.0" />
             <Button layoutX="215.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnFindNext_OnAction" prefHeight="26.0" prefWidth="33.0" text="↓" />
             <Button layoutX="256.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnFindPrevious_OnAction" prefHeight="26.0" prefWidth="33.0" text="↑" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pneReplace" prefHeight="100.0" prefWidth="303.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField fx:id="txtSearch1" layoutX="10.0" layoutY="12.0" prefHeight="26.0" prefWidth="187.0" />
+            <Button layoutX="215.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnFindNext_OnAction" prefHeight="26.0" prefWidth="33.0" text="↓" />
+            <Button layoutX="256.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnFindPrevious_OnAction" prefHeight="26.0" prefWidth="33.0" text="↑" />
+            <TextField fx:id="txtReplace" layoutX="10.0" layoutY="51.0" prefHeight="26.0" prefWidth="187.0" />
+            <Button layoutX="203.0" layoutY="51.0" mnemonicParsing="false" onAction="#btnReplace_OnAction" prefHeight="29.0" prefWidth="45.0" text="R" />
+            <Button layoutX="256.0" layoutY="51.0" mnemonicParsing="false" onAction="#btnReplaceAll_OnAction" prefHeight="29.0" prefWidth="45.0" text="RA" />
          </children>
       </AnchorPane>
    </children>
