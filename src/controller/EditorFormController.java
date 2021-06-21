@@ -44,6 +44,7 @@ public class EditorFormController {
     }
 
     public void mnuItemReplace_OnAction(ActionEvent actionEvent) {
+
     }
 
     public void mnuItemSelectAll_OnAction(ActionEvent actionEvent) {
