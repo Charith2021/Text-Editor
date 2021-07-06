@@ -8,10 +8,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import util.FXUtil;
 
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -174,7 +176,47 @@ public class EditorFormController {
         searchMatches(txtSearch1.getText());
     }
 
+    public void mnuFile_OpenOnAction(ActionEvent actionEvent) {     //to open another text file
+        FileChooser fileChooser = new FileChooser();   //1st step
+        fileChooser.setTitle("Open File");
+        fileChooser.getExtensionFilters().add
+                (new FileChooser.ExtensionFilter("All Text Files", "*.txt", "*.html"));
+        fileChooser.getExtensionFilters().add
+                (new FileChooser.ExtensionFilter("All Files", "*"));
+        File file = fileChooser.showOpenDialog(txtEditor.getScene().getWindow());   //secon step
+
+        if (file == null) return;
+
+        txtEditor.clear();
+        try (FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null){
+                txtEditor.appendText(line + '\n');
+            }
+
+        } catch (IOException  e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mnuSaveAs_OnAction(ActionEvent actionEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File");
+        File file = fileChooser.showSaveDialog(txtEditor.getScene().getWindow());  // api save as giyama file eka save karanna tanak select karanawane eg-desktop. Me method eken wenne a tana point wena eka.onanam sout ekak dala blnna save as gihin tanak torala
+
+        if (file == null) return;   //save dialog box eka enawa. eka cancel karoth tama file eka null wenne
+
+        try(FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw)){
+            bw.write(txtEditor.getText());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
+
 
     class Index {
         int startingIndex;
