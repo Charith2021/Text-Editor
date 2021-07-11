@@ -4,8 +4,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+<<<<<<< HEAD
 import java.io.*;
 import java.util.Properties;
+=======
+import java.io.IOException;
+import java.util.prefs.Preferences;
+>>>>>>> feat/preferences
 
 public class AppInitializer extends Application {
 
@@ -62,6 +67,7 @@ public class AppInitializer extends Application {
 
 
         primaryStage.show();
+<<<<<<< HEAD
         primaryStage.setOnCloseRequest(event -> {
             prop.put("xPos",primaryStage.getX() + "");
             prop.put("yPos",primaryStage.getY() + "");
@@ -98,5 +104,36 @@ public class AppInitializer extends Application {
             e.printStackTrace();
         }
 
+=======
+
+        double xPos = Preferences.userRoot().node("simple-text-editor").getDouble("xPos",-1);
+        double yPos = Preferences.userRoot().node("simple-text-editor").getDouble("yPos",-1);
+
+        double width = Preferences.userRoot().node("simple-text-editor").getDouble("width",-1);
+        double height = Preferences.userRoot().node("simple-text-editor").getDouble("height",-1);
+
+        if(width == -1 && height == -1){
+            primaryStage.setMaximized(true);
+        }else {
+            primaryStage.setWidth(width);
+            primaryStage.setHeight(height);
+        }
+
+
+        if(xPos == -1 && yPos == -1){
+            primaryStage.centerOnScreen();
+        }else {
+            primaryStage.setX(xPos);
+            primaryStage.setY(yPos);
+        }
+
+    primaryStage.setOnCloseRequest(event -> {
+        Preferences.userRoot().node("simple-text-editor").putDouble("xPos",primaryStage.getX());
+        Preferences.userRoot().node("simple-text-editor").putDouble("yPos",primaryStage.getY());
+        Preferences.userRoot().node("simple-text-editor").putDouble("width",primaryStage.getWidth());
+        Preferences.userRoot().node("simple-text-editor").putDouble("height",primaryStage.getHeight());
+    });
+
+>>>>>>> feat/preferences
     }
 }
