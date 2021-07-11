@@ -3,6 +3,8 @@ package controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
+import javafx.print.PrinterJob;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -31,12 +33,14 @@ public class EditorFormController {
     public TextField txtSearch11;
     public TextField txtReplace;
     private int findOffset = -1;
+    private PrinterJob printerJob;
 
    // private int findOffSet;
 
     public  void  initialize(){
         pneFind.setVisible(false);
         pneReplace.setVisible(false);
+        this.printerJob = PrinterJob.createPrinterJob();
 
         ChangeListener textListener = (ChangeListener<String>) (observable, oldValue, newValue) -> {
             searchMatches(newValue);
@@ -212,8 +216,19 @@ public class EditorFormController {
             BufferedWriter bw = new BufferedWriter(fw)){
             bw.write(txtEditor.getText());
         }catch (IOException e){
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
+    }
+
+    public void mnuPrint_OnAction(ActionEvent actionEvent) {
+        boolean printDialog = printerJob.showPrintDialog(txtEditor.getScene().getWindow());
+        if(printDialog){              //meka damme nathnam print dialog box eka ahama print nokara cancel karoth exit code eka 0 wen na
+            printerJob.printPage(txtEditor.lookup("Text"));
+       }
+    }
+
+    public void mnuPageSetup_OnAction(ActionEvent actionEvent) {
+     printerJob.showPageSetupDialog(txtEditor.getScene().getWindow());
     }
 }
 
